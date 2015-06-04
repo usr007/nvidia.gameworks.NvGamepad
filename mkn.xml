@@ -1,0 +1,69 @@
+<!--
+
+./mkn.xml
+
+Created on: 8 Mar 2015
+
+Copyright (c) 2013, Philip Deegan
+
+This file is part of Nvidia NvGamepad
+
+See ./license.txt
+-->
+<?xml version="1.0" encoding="UTF-8" ?>
+<maiken>
+	<properties>
+		<github>http://www.github.com/Dekken</github>
+		<git>${github}/nvidia.gameworks.NvGamepad.git</git>
+	</properties>
+	<project>
+		<name>nvidia.gameworks.NvGamepad</name>
+		<version>master</version>
+		<scr scm="git">${git}</scr>
+	</project>
+
+	<profiles>
+		<profile name="c">
+			<includes>
+				<include>./inc</include>
+			</includes>
+			<sources>
+				<source>./src</source>
+			</sources>
+			<dependencies>
+				<dependency>
+					<name>nvidia.gameworks.NV</name>
+					<version>master</version>
+					<scr scm="git">${github}/nvidia.gameworks.NV.git</scr>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile name="nix" parent="c" os="nix">
+			<build type="lib" lang="cpp"> 
+				<files>
+					<file type="cpp">
+						<args><arg>-DLINUX</arg></args>
+					</file>
+				</files>
+			</build> 
+		</profile>
+		<profile name="bsd" parent="c" os="bsd">
+			<build type="lib" lang="cpp"> 
+				<files>
+					<file type="cpp">
+						<args><arg>-DMACOSX</arg></args>
+					</file>
+				</files>
+			</build> 
+		</profile>
+		<profile name="win" parent="c" os="win">
+			<build type="lib" lang="cpp"> 
+				<files>
+					<file type="cpp">
+						<args><arg>-DWIN32</arg></args>
+					</file>
+				</files>
+			</build> 
+		</profile>
+	</profiles>
+</maiken>
